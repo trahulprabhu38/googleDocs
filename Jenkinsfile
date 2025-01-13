@@ -11,12 +11,12 @@ pipeline {
                 docker {
                     image 'node:18-alpine'
                     reuseNode true
-                    // args '-u 1000:1000 -v /var/jenkins_home/workspace/google-Docs-Deployment:/var/jenkins_home/workspace/google-Docs-Deployment:rw,z'
+                   
                 }
             }
             steps {
                 echo "Building the project..."
-                sh 'ls -l /var/jenkins_home/workspace/google-Docs-Deployment'  // Debugging command to check file access
+                sh 'ls -l /var/jenkins_home/workspace/google-Docs-Deployment'  
                 sh 'npm install'
                 sh 'npm run build'
             }
@@ -26,12 +26,12 @@ pipeline {
                 docker {
                     image 'node:18-alpine'
                     reuseNode true
-                    // args '-u 1000:1000 -v /var/jenkins_home/workspace/google-Docs-Deployment:/var/jenkins_home/workspace/google-Docs-Deployment:rw,z'
+                   
                 }
             }
             steps {
                 echo "Deploying to Netlify..."
-                sh 'ls -l /var/jenkins_home/workspace/google-Docs-Deployment'  // Debugging command for deploy stage
+                sh 'ls -l /var/jenkins_home/workspace/google-Docs-Deployment'  
                 sh '''
                     npm install netlify-cli 
                     node_modules/.bin/netlify status

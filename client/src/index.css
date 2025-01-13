@@ -1,91 +1,25 @@
-:root {
-  --bg-color: #162636; /* Dark blue background */
-  --text-color: #000000; /* Light text color */
-  --editor-bg-color: #e4e6e8; /* Slightly lighter blue for the editor */
-  --toolbar-bg-color: #0a1b2d; /* Blue for the toolbar */
-  --shadow-color: rgba(152, 157, 162, 0.3); /* Subtle shadow in blue */
-  --highlight-color: #ffffff; /* Highlight color for buttons */
-  --toolbar-border-color: #7bb0e6; /* Toolbar border */  
-}
-
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: #F3F3F3;
   margin: 0;
-  font-family: 'Roboto', Arial, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding: 2rem 0;
-}
-
-/* Navigation Bar Styling */
-.navbar {
-  width: 100%;
-  background-color: var(--header-bg-color);
-  color: var(--header-text-color);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 1.5rem 2rem;
-  font-size: 1.5rem; /* Larger text */
-  font-weight: bold;
-  box-shadow: 0 2px 5px var(--shadow-color);
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.navbar a {
-  color: var(--header-text-color);
-  text-decoration: none;
-  margin: 0 1rem;
-  transition: color 0.3s ease, transform 0.2s ease;
-}
-
-.navbar a:hover {
-  color: var(--toolbar-bg-color); /* Slightly darker blue on hover */
-  transform: scale(1.1);
-}
-
-.container {
-  max-width: 900px;
-  width: 100%;
-  background-color: var(--bg-color);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  box-shadow: 20px 20px 10px  var(--shadow-color);
-  border-radius: 12px;
 }
 
 .container .ql-editor {
   width: 8.5in;
   min-height: 11in;
   padding: 1in;
-  margin: 0 auto;
-  box-shadow: 0 0 10px 0 var(--shadow-color);
-  background-color: var(--editor-bg-color);
-  border-radius: 8px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin: 1rem;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
+  background-color: white;
 }
 
 .container .ql-container.ql-snow {
-  border: 1px solid var(--toolbar-border-color);
+  border: none;
   display: flex;
   justify-content: center;
-  padding: 1rem;
-  border-radius: 8px;
-  background-color: var(--highlight-color);
 }
 
 .container .ql-toolbar.ql-snow {
@@ -94,29 +28,9 @@ body {
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: var(--toolbar-bg-color);
-  border: 1px solid var(--toolbar-border-color);
-  box-shadow: 0 2px 5px var(--shadow-color);
-  padding: 0.8rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.container .ql-toolbar.ql-snow button {
-  background-color: var(--highlight-color);
-  color: var(--text-color);
+  background-color: #F3F3F3;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  margin: 0 0.3rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.container .ql-toolbar.ql-snow button:hover {
-  background-color: var(--shadow-color);
-  transform: scale(1.05);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
 }
 
 @page {
@@ -126,7 +40,6 @@ body {
 @media print {
   body {
     background: none;
-    color: black;
   }
 
   .container .ql-editor {
@@ -136,31 +49,9 @@ body {
     margin: 0;
     box-shadow: none;
     align-self: flex-start;
-    border-radius: 0;
   }
 
   .container .ql-toolbar.ql-snow {
     display: none;
   }
-}
-
-.header {
-  width: 100%;
-  background: linear-gradient(90deg, #003366, #00509E, #0073E6);
-  color: #FFFFFF;
-  text-align: center;
-  padding: 1.5rem;
-  font-size: 2.5rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.header:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }

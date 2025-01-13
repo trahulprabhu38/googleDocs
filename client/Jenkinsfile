@@ -11,7 +11,7 @@ pipeline {
                 docker {
                     image 'node:18-alpine'
                     reuseNode true
-                    args '-u 1000:1000 -v /var/jenkins_home/workspace/google-Docs-Deployment:/var/jenkins_home/workspace/google-Docs-Deployment:rw,z'
+                    // args '-u 1000:1000 -v /var/jenkins_home/workspace/google-Docs-Deployment:/var/jenkins_home/workspace/google-Docs-Deployment:rw,z'
                 }
             }
             steps {
@@ -26,7 +26,7 @@ pipeline {
                 docker {
                     image 'node:18-alpine'
                     reuseNode true
-                    args '-u 1000:1000 -v /var/jenkins_home/workspace/google-Docs-Deployment:/var/jenkins_home/workspace/google-Docs-Deployment:rw,z'
+                    // args '-u 1000:1000 -v /var/jenkins_home/workspace/google-Docs-Deployment:/var/jenkins_home/workspace/google-Docs-Deployment:rw,z'
                 }
             }
             steps {
@@ -41,3 +41,4 @@ pipeline {
         }
     }
 }
+

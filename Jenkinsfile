@@ -40,8 +40,8 @@ pipeline {
                     sh 'ls -l'  
                     sh '''
                         npm install  netlify-cli  
-                        netlify status 
-                        netlify deploy --dir=./dist --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod  
+                        node_modules/.bin/netlify status 
+                        node_modules/.bin/netlify deploy --dir=./dist --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod  
                     '''
                 }
             }

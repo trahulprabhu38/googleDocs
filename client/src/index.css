@@ -1,68 +1,166 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --bg-color: #162636; /* Dark blue background */
+  --text-color: #000000; /* Light text color */
+  --editor-bg-color: #e4e6e8; /* Slightly lighter blue for the editor */
+  --toolbar-bg-color: #0a1b2d; /* Blue for the toolbar */
+  --shadow-color: rgba(152, 157, 162, 0.3); /* Subtle shadow in blue */
+  --highlight-color: #ffffff; /* Highlight color for buttons */
+  --toolbar-border-color: #7bb0e6; /* Toolbar border */  
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
   margin: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  justify-content: center;
+  align-items: flex-start;
   min-height: 100vh;
+  padding: 2rem 0;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
+/* Navigation Bar Styling */
+.navbar {
+  width: 100%;
+  background-color: var(--header-bg-color);
+  color: var(--header-text-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  font-size: 1.5rem; /* Larger text */
+  font-weight: bold;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  margin-bottom: 1rem;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.navbar a {
+  color: var(--header-text-color);
+  text-decoration: none;
+  margin: 0 1rem;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar a:hover {
+  color: var(--toolbar-bg-color); /* Slightly darker blue on hover */
+  transform: scale(1.1);
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  box-shadow: 20px 20px 10px  var(--shadow-color);
+  border-radius: 12px;
+}
+
+.container .ql-editor {
+  width: 8.5in;
+  min-height: 11in;
+  padding: 1in;
+  margin: 0 auto;
+  box-shadow: 0 0 10px 0 var(--shadow-color);
+  background-color: var(--editor-bg-color);
+  border-radius: 8px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container .ql-container.ql-snow {
+  border: 1px solid var(--toolbar-border-color);
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--highlight-color);
+}
+
+.container .ql-toolbar.ql-snow {
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--toolbar-bg-color);
+  border: 1px solid var(--toolbar-border-color);
+  box-shadow: 0 2px 5px var(--shadow-color);
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container .ql-toolbar.ql-snow button {
+  background-color: var(--highlight-color);
+  color: var(--text-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin: 0 0.3rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.container .ql-toolbar.ql-snow button:hover {
+  background-color: var(--shadow-color);
+  transform: scale(1.05);
+}
+
+@page {
+  margin: 1in;
+}
+
+@media print {
+  body {
+    background: none;
+    color: black;
   }
-  a:hover {
-    color: #747bff;
+
+  .container .ql-editor {
+    width: 6.5in;
+    height: 9in;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    align-self: flex-start;
+    border-radius: 0;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .container .ql-toolbar.ql-snow {
+    display: none;
   }
+}
+
+.header {
+  width: 100%;
+  background: linear-gradient(90deg, #003366, #00509E, #0073E6);
+  color: #FFFFFF;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }

@@ -18,8 +18,8 @@ pipeline {
                 
                 
                 dir('client') {
-                    sh 'ls -l' 
-                    sh 'npm install'  
+                    sh 'ls -l'  
+                    sh 'npm install'
                     sh 'npm run build'
                 }
             }
@@ -35,13 +35,13 @@ pipeline {
             steps {
                 echo "Deploying to Netlify..."
                 
-                
+            
                 dir('client') {
-                    sh 'ls -l' 
+                    sh 'ls -l'  
                     sh '''
-                        npm install -g netlify-cli  // Install the Netlify CLI globally
-                        netlify status  // Check the current site status
-                        netlify deploy --dir=./dist --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod  // Deploy to Netlify
+                        npm install  netlify-cli  
+                        netlify status 
+                        netlify deploy --dir=./dist --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod  
                     '''
                 }
             }

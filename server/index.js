@@ -1,17 +1,38 @@
-require('dotenv').config(); // Load environment variables
+const mongoose = require("mongoose")
+const connectToDataBase = require('./db/connectToDb.js')
+const Document = require('./models/document.js')
 
-const io = require('socket.io')(process.env.PORT || 5050, {
+connectToDataBase()
+
+const defaultValue = ""
+
+const io = require('socket.io')(5050, {
     cors: {
-        origin: process.env.CORS_ORIGIN || "https://baddocs.netlify.app/",
+        origin :"http://localhost:5173",
         methods: ['GET', 'POST']
     },
-});
+}); 
 
-io.on("connection", (socket) => {
-    socket.on('send-changes', (delta) => {
-        console.log(delta);
-        socket.broadcast.emit('receive-changes', delta);
-    });
+ io.on("connection", socket => {
+  socket.on("get-document", async documentId => {
+    const document = await findOrCreateDocument(documentId)
+    socket.join(documentId)
+    socket.emit("load-document", document.data)
+ 
+    socket.on("send-changes", delta => {
+      socket.broadcast.to(documentId).emit("receive-changes", delta)
+    })
 
-    console.log("connected!");
-});
+    socket.on("save-document", async data => {
+      await Document.findByIdAndUpdate(documentId, { data })
+    })
+  })
+})
+
+async function findOrCreateDocument(id) {
+  if (id == null) return
+
+  const document = await Document.findById(id)
+  if (document) return document
+  return await Document.create({ _id: id, data: defaultValue })
+}

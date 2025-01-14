@@ -160,6 +160,13 @@ pipeline {
     }
     
     stages {
+        stage('testing docker') {
+            steps {
+                sh 'docker --version'
+                sh 'which docker'
+                sh 'which docker-compose'
+            }
+        }
         
         stage('Install Dependencies') {
             parallel {

@@ -47,3 +47,24 @@ EXPOSE 5050
 # Start the backend server
 CMD ["npm", "start"]
 
+
+
+FROM jenkins/jenkins:lts-jdk17
+
+USER root
+
+# Install dependencies for Docker and Docker Compose
+RUN apt-get update && apt-get install -y \
+    curl \
+    lsb-release \
+    python3-pip \
+    python3-setuptools \
+    ca-certificates \
+    gnupg \
+    jq
+
+# Install Docker Compose
+RUN curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
+
+USER jenkins

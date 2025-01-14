@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  backend:
+    build: .
+    ports:
+      - "5050:5050"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/mydatabase
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"

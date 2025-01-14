@@ -156,7 +156,7 @@ pipeline {
         NETLIFY_AUTH_TOKEN = credentials('netlify-token')
         NETLIFY_SITE_ID = '95768b9b-d5aa-4b58-b3fb-b963e98b1a98'
         DOCKER_IMAGE_BACKEND = 'trahulprabhu38/server-docs-image'
-        DOCKER_IMAGE_FRONTEND = 'trahulprabhu38/client-docs-image '
+        DOCKER_IMAGE_FRONTEND = 'trahulprabhu38/client-docs-image'
     }
     
     stages {

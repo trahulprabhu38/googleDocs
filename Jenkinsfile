@@ -139,9 +139,13 @@
 //         }
 //     }
 // }
-
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:18-alpine'
+            reuseNode true
+        }
+    }
     
     environment {
         DOCKER_HUB_CREDS = credentials('docker-hub-credentials')
@@ -159,12 +163,6 @@ pipeline {
         }
         
         stage('Install Dependencies') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
             parallel {
                 stage('Backend Dependencies') {
                     steps {
@@ -184,12 +182,6 @@ pipeline {
         }
         
         stage('Run Tests') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
             parallel {
                 stage('Backend Tests') {
                     steps {
@@ -209,12 +201,6 @@ pipeline {
         }
         
         stage('Build Frontend') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
             steps {
                 dir('client') {
                     sh 'npm run build'
@@ -239,12 +225,6 @@ pipeline {
         }
         
         stage('Deploy Frontend to Netlify') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
             steps {
                 dir('client') {
                     sh '''

@@ -3,11 +3,13 @@ services:
   backend:
     build:
       context: .         
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.backend
     ports:
-      - "5000:5000"
+      - "5050:5050"  # Changed to match the EXPOSE port in Dockerfile
     environment:
       - MONGO_URI=mongodb://mongo:27017/mydatabase
+    depends_on:
+      - mongo
 
   mongo:
     image: mongo:latest

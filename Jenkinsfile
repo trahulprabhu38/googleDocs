@@ -150,7 +150,9 @@ pipeline {
     }
     
     environment {
-        DOCKER_HUB_CREDS = credentials('docker-hub-credentials')
+        // DOCKER_HUB_CREDS = credentials('docker-hub-credentials')
+        DOCKER_USERNAME = 'trahulprabhu38'
+        DOCKER_PASSWORD = 'Lonewolf@Namratha38'
         NETLIFY_AUTH_TOKEN = credentials('netlify-token')
         NETLIFY_SITE_ID = '95768b9b-d5aa-4b58-b3fb-b963e98b1a98'
         DOCKER_IMAGE_BACKEND = 'trahulprabhu38/server-docs-image'
@@ -208,7 +210,10 @@ pipeline {
         stage('Build and Push Docker Images') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_HUB_CREDS) {
+                   withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        
+                        sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+
                         // Build and push backend image
                         def backendImage = docker.build("${DOCKER_IMAGE_BACKEND}", "./server")
                         backendImage.push()

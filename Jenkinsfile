@@ -142,12 +142,13 @@
 
 pipeline {
     agent {
-         docker {
-            image 'docker:latest' // Use a Docker image that has Docker installed
-            args '-v /var/run/docker.sock:/var/run/docker.sock' // Mount Docker socket
+        docker {
+             image 'docker:19.03.12-dind'  
+            args '-v /var/run/docker.sock:/var/run/docker.sock --user root'
             image 'node:18-alpine'
             reuseNode true
-        }
+        }   
+
     }
     
     environment {
@@ -160,6 +161,18 @@ pipeline {
     }
     
     stages {
+
+        stage('Install Docker') {
+            steps {
+                script {
+                    sh '''
+                        curl -fsSL https://get.docker.com -o get-docker.sh
+                        sudo sh get-docker.sh
+                    '''
+                }
+            }
+        }
+
         stage('Testing Docker') {
             steps {
                 script {

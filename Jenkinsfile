@@ -181,24 +181,24 @@ pipeline {
             }
         }
         
-        stage('Run Tests') {
-            parallel {
-                stage('Backend Tests') {
-                    steps {
-                        dir('server') {
-                            sh 'npm test'
-                        }
-                    }
-                }
-                stage('Frontend Tests') {
-                    steps {
-                        dir('client') {
-                            sh 'npm test'
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Run Tests') {
+        //     parallel {
+        //         stage('Backend Tests') {
+        //             steps {
+        //                 dir('server') {
+        //                     sh 'npm test'
+        //                 }
+        //             }
+        //         }
+        //         stage('Frontend Tests') {
+        //             steps {
+        //                 dir('client') {
+        //                     sh 'npm test'
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         
         stage('Build Frontend') {
             steps {

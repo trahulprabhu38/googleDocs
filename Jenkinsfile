@@ -53,7 +53,6 @@
 //     }
 // }
 
-
 pipeline {
     agent any
     environment {
@@ -107,26 +106,28 @@ pipeline {
                     echo "Deploying frontend to Netlify..."
                     sh '''
                         npm install netlify-cli
-                        node_modules/.bin/netlify status
-                        node_modules/.bin/netlify deploy --dir=./dist --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --prod
+                        ./node_modules/.bin/netlify status
+                        ./node_modules/.bin/netlify deploy --dir=./dist --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --prod
                     '''
                 }
             }
         }
 
-        stages {
         stage('Build Backend') {
             steps {
                 echo "Building backend with Docker Compose..."
                 dir('server') {
                     sh '''
+                        if ! command -v docker-compose &> /dev/null; then
+                            echo "docker-compose could not be found. Please install it on the Jenkins server."
+                            exit 1
+                        fi
                         docker-compose down || true
                         docker-compose up -d --build
                     '''
                 }
             }
         }
-    }
     }
 
     post {

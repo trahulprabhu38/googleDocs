@@ -114,24 +114,19 @@ pipeline {
             }
         }
 
-        stage('Deploy Backend') {
-            agent any
+        stages {
+        stage('Build Backend') {
             steps {
-                echo "Deploying backend with Docker..."
-
-                script {
-                    // Stop any running containers
+                echo "Building backend with Docker Compose..."
+                dir('server') {
                     sh '''
                         docker-compose down || true
-                    '''
-
-                    // Start and rebuild containers
-                    sh '''
                         docker-compose up -d --build
                     '''
                 }
             }
         }
+    }
     }
 
     post {

@@ -212,7 +212,6 @@ pipeline {
                 script {
                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                         
-                        sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
 
                         // Build and push backend image
                         def backendImage = docker.build("${DOCKER_IMAGE_BACKEND}", "./server")

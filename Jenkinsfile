@@ -140,7 +140,6 @@
 //     }
 // }
 
-
 pipeline {
     agent {
         docker {
@@ -150,7 +149,6 @@ pipeline {
     }
     
     environment {
-        // DOCKER_HUB_CREDS = credentials('docker-hub-credentials')
         DOCKER_USERNAME = 'trahulprabhu38'
         DOCKER_PASSWORD = 'Lonewolf@Namratha38'
         NETLIFY_AUTH_TOKEN = credentials('netlify-token')
@@ -160,11 +158,14 @@ pipeline {
     }
     
     stages {
-        stage('testing docker') {
+        stage('Testing Docker') {
             steps {
-                sh 'docker --version'
-                sh 'which docker'
-                sh 'which docker-compose'
+                script {
+                    // Check if Docker is available
+                    sh 'docker --version'
+                    sh 'which docker'
+                    sh 'which docker-compose || echo "docker-compose not found"'
+                }
             }
         }
         
@@ -186,26 +187,7 @@ pipeline {
                 }
             }
         }
-        
-        // stage('Run Tests') {
-        //     parallel {
-        //         stage('Backend Tests') {
-        //             steps {
-        //                 dir('server') {
-        //                     sh 'npm test'
-        //                 }
-        //             }
-        //         }
-        //         stage('Frontend Tests') {
-        //             steps {
-        //                 dir('client') {
-        //                     sh 'npm test'
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        
+
         stage('Build Frontend') {
             steps {
                 dir('client') {
@@ -217,9 +199,9 @@ pipeline {
         stage('Build and Push Docker Images') {
             steps {
                 script {
-                   withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                        
-                        sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        // Login to Docker Hub
+                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
 
                         // Build and push backend image
                         def backendImage = docker.build("${DOCKER_IMAGE_BACKEND}", "./server")
@@ -232,7 +214,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Deploy Frontend to Netlify') {
             steps {
                 dir('client') {
@@ -246,7 +228,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Deploy Backend') {
             steps {
                 dir('server') {
@@ -258,7 +240,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             cleanWs()

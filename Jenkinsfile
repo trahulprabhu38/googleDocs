@@ -297,17 +297,6 @@ pipeline {
             }
         }
 
-        stage('Install Docker') {
-            steps {
-                script {
-                    sh '''
-                        curl -fsSL https://get.docker.com -o get-docker.sh
-                        sh get-docker.sh
-                    '''
-                }
-            }
-        }
-
         stage('Testing Docker') {
             steps {
                 script {
